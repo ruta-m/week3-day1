@@ -12,27 +12,27 @@ const wss = new WebSocket.Server({ port: PORT });
 // ─── Mock Instruments ────────────────────────────────────────────────────────
 const STOCKS = [
   { symbol: "RELIANCE", name: "Reliance Industries", exchange: "NSE", sector: "Energy", basePrice: 2940.5 },
-  { symbol: "TCS",      name: "Tata Consultancy",    exchange: "NSE", sector: "IT",     basePrice: 3875.2 },
-  { symbol: "HDFCBANK", name: "HDFC Bank",           exchange: "NSE", sector: "Bank",   basePrice: 1680.75 },
-  { symbol: "INFY",     name: "Infosys",             exchange: "NSE", sector: "IT",     basePrice: 1582.4 },
-  { symbol: "WIPRO",    name: "Wipro",               exchange: "NSE", sector: "IT",     basePrice: 468.9 },
-  { symbol: "SBIN",     name: "State Bank of India", exchange: "NSE", sector: "Bank",   basePrice: 812.3 },
-  { symbol: "ICICIBANK",name: "ICICI Bank",          exchange: "NSE", sector: "Bank",   basePrice: 1245.6 },
-  { symbol: "BAJFINANCE",name:"Bajaj Finance",       exchange: "NSE", sector: "NBFC",   basePrice: 6780.0 },
-  { symbol: "TATAMOTORS",name:"Tata Motors",         exchange: "NSE", sector: "Auto",   basePrice: 965.4 },
-  { symbol: "ADANIENT", name: "Adani Enterprises",   exchange: "NSE", sector: "Conglomerate", basePrice: 2456.8 },
-  { symbol: "HCLTECH",  name: "HCL Technologies",    exchange: "NSE", sector: "IT",     basePrice: 1623.5 },
-  { symbol: "MARUTI",   name: "Maruti Suzuki",       exchange: "NSE", sector: "Auto",   basePrice: 12340.0 },
-  { symbol: "ASIANPAINT",name:"Asian Paints",        exchange: "NSE", sector: "FMCG",   basePrice: 2890.5 },
-  { symbol: "KOTAKBANK", name:"Kotak Mahindra Bank", exchange: "NSE", sector: "Bank",   basePrice: 1876.4 },
-  { symbol: "LTIM",     name: "LTIMindtree",         exchange: "NSE", sector: "IT",     basePrice: 5234.0 },
+  { symbol: "TCS", name: "Tata Consultancy", exchange: "NSE", sector: "IT", basePrice: 3875.2 },
+  { symbol: "HDFCBANK", name: "HDFC Bank", exchange: "NSE", sector: "Bank", basePrice: 1680.75 },
+  { symbol: "INFY", name: "Infosys", exchange: "NSE", sector: "IT", basePrice: 1582.4 },
+  { symbol: "WIPRO", name: "Wipro", exchange: "NSE", sector: "IT", basePrice: 468.9 },
+  { symbol: "SBIN", name: "State Bank of India", exchange: "NSE", sector: "Bank", basePrice: 812.3 },
+  { symbol: "ICICIBANK", name: "ICICI Bank", exchange: "NSE", sector: "Bank", basePrice: 1245.6 },
+  { symbol: "BAJFINANCE", name: "Bajaj Finance", exchange: "NSE", sector: "NBFC", basePrice: 6780.0 },
+  { symbol: "TATAMOTORS", name: "Tata Motors", exchange: "NSE", sector: "Auto", basePrice: 965.4 },
+  { symbol: "ADANIENT", name: "Adani Enterprises", exchange: "NSE", sector: "Conglomerate", basePrice: 2456.8 },
+  { symbol: "HCLTECH", name: "HCL Technologies", exchange: "NSE", sector: "IT", basePrice: 1623.5 },
+  { symbol: "MARUTI", name: "Maruti Suzuki", exchange: "NSE", sector: "Auto", basePrice: 12340.0 },
+  { symbol: "ASIANPAINT", name: "Asian Paints", exchange: "NSE", sector: "FMCG", basePrice: 2890.5 },
+  { symbol: "KOTAKBANK", name: "Kotak Mahindra Bank", exchange: "NSE", sector: "Bank", basePrice: 1876.4 },
+  { symbol: "LTIM", name: "LTIMindtree", exchange: "NSE", sector: "IT", basePrice: 5234.0 },
 ];
 
 const INDICES = [
-  { symbol: "NIFTY50",  name: "NIFTY 50",      baseValue: 22450.5 },
-  { symbol: "SENSEX",   name: "BSE SENSEX",    baseValue: 73856.2 },
-  { symbol: "BANKNIFTY",name: "BANK NIFTY",    baseValue: 48320.0 },
-  { symbol: "NIFTYMID", name: "NIFTY MIDCAP",  baseValue: 49680.0 },
+  { symbol: "NIFTY50", name: "NIFTY 50", baseValue: 22450.5 },
+  { symbol: "SENSEX", name: "BSE SENSEX", baseValue: 73856.2 },
+  { symbol: "BANKNIFTY", name: "BANK NIFTY", baseValue: 48320.0 },
+  { symbol: "NIFTYMID", name: "NIFTY MIDCAP", baseValue: 49680.0 },
 ];
 
 // ─── State ────────────────────────────────────────────────────────────────────
@@ -68,7 +68,7 @@ INDICES.forEach(i => {
     value: i.baseValue,
     open: i.baseValue * (1 + randomBetween(-0.01, 0.01)),
     high: i.baseValue * (1 + randomBetween(0, 0.02)),
-    low:  i.baseValue * (1 - randomBetween(0, 0.02)),
+    low: i.baseValue * (1 - randomBetween(0, 0.02)),
     prevClose: i.baseValue * (1 + randomBetween(-0.02, 0.02)),
     advances: Math.floor(randomBetween(20, 35)),
     declines: Math.floor(randomBetween(10, 30)),
@@ -101,14 +101,14 @@ function tickStock(symbol) {
 
   s.ltp = ltp;
   s.high = Math.max(s.high, ltp);
-  s.low  = Math.min(s.low, ltp);
+  s.low = Math.min(s.low, ltp);
   s.volume += Math.floor(randomBetween(0, 500));
   s.totalTradedValue = +(s.ltp * s.volume / 1000).toFixed(0); // in crores approx
   s.change = +(s.ltp - s.prevClose).toFixed(2);
   s.changePercent = +((s.change / s.prevClose) * 100).toFixed(2);
-  s.buyQty  = Math.floor(randomBetween(500, 80000));
+  s.buyQty = Math.floor(randomBetween(500, 80000));
   s.sellQty = Math.floor(randomBetween(500, 80000));
-  s.depth   = generateDepth(ltp);
+  s.depth = generateDepth(ltp);
   s.lastUpdated = Date.now();
 
   return s;
@@ -118,8 +118,8 @@ function tickIndex(symbol) {
   const idx = state.indices[symbol];
   const delta = randomBetween(-0.002, 0.002);
   idx.value = +(idx.value * (1 + delta)).toFixed(2);
-  idx.high  = Math.max(idx.high, idx.value);
-  idx.low   = Math.min(idx.low, idx.value);
+  idx.high = Math.max(idx.high, idx.value);
+  idx.low = Math.min(idx.low, idx.value);
   idx.change = +(idx.value - idx.prevClose).toFixed(2);
   idx.changePercent = +((idx.change / idx.prevClose) * 100).toFixed(2);
   // shuffle advance/decline slightly
@@ -199,9 +199,13 @@ wss.on("connection", (ws, req) => {
       }
 
       if (msg.type === "PING") {
-        ws.send(JSON.stringify({ type: "PONG", ts: Date.now() }));
+        if (ws.readyState === WebSocket.OPEN) {
+          ws.send(JSON.stringify({
+            type: "PONG",
+            ts: msg.ts, // echo back client timestamp
+          }));
+        }
       }
-
     } catch (e) {
       console.error("Bad message from client:", e.message);
     }

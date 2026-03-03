@@ -13,7 +13,7 @@ export type Stock = {
 };
 
 export type ServerMessage = {
-    type: string;
+    type: "HELLO" | "STOCK_UPDATE" | "PING" | "PONG"; // changed line
     message?: string;
     stock?: Stock;
 };
