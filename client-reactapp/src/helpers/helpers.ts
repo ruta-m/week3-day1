@@ -6,11 +6,13 @@ export function formatPrice(price: number): string {
 }
 
 export function formatPercent(value: number): string {
+    if(!Number.isFinite(value)) return "-";
     const sign = value>=0 ? "+" : "";
     return `${sign}${value.toFixed(2)}%`;
 }
 
 export function formatChange(value: number): string {
+    if(!Number.isFinite(value)) return "-";
     const sign = value>=0 ? "+" : "";
     return `${sign}${value.toFixed(2)}%`;
 }
