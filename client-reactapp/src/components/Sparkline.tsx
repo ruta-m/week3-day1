@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 type SparklineProps = {
     prices: number[];
     isGreen: boolean;
@@ -5,7 +7,7 @@ type SparklineProps = {
     height?: number;
 };
 
-export function Sparkline ({ prices, isGreen, width=80, height=30}: SparklineProps) {
+function Sparkline ({ prices, isGreen, width=80, height=30}: SparklineProps) {
     if(prices.length < 2) return <svg width={width} height={height} />;
 
     const minPrice = Math.min(...prices);
@@ -34,3 +36,5 @@ export function Sparkline ({ prices, isGreen, width=80, height=30}: SparklinePro
         </svg>
     );
 }
+
+export default memo(Sparkline);

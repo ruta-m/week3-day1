@@ -275,6 +275,7 @@ setInterval(() => {
     symbol: sym,
     timestamp: Date.now(),
     data: s.depth,
+    serverTs: Date.now(), // new line 
   });
 
   wss.clients.forEach(ws => {
